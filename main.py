@@ -12,12 +12,12 @@ client.remove_command('help')
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Activity(name="(>_):#help", type=discord.ActivityType.playing))
-    await client.get_channel(606607467719426058).send('Бот готов к использованию!')
+
 @client.event
 async def on_member_join(member):
     roles = discord.Guild.get_role(role_id=609013471845023785, self = member.guild)
     await client.get_channel(606607467719426058).send(f"Приветствую тебя на сервере {member.guild.name}, {member.mention}!")
-    await member.add_roles(roles)
+
 
 @client.event
 async def on_member_remove(member):
@@ -47,10 +47,10 @@ async def info(ctx, member: discord.Member = None):
         rly = "Да"
     else: rly = "Нет"
     if(gameuser == None):
-        embed = discord.Embed(title=f'Пользователь {user}', description= f'Пользователь ни во что не играет\nС телефона?: {rly}\n Отображаемое имя: {name}\n Самая высокая роль: {role}', color=0xffff00)
+        embed = discord.Embed(title=f'Пользователь {user}', description= f'Пользователь ни во что не играет\nС телефона?: {rly}\n Отображаемое имя: {name}\n Самая высокая роль: {role.mention}', color=0xffff00)
         embed.set_footer(text=f'Вызвано: {ctx.message.author}', icon_url=str(ctx.message.author.avatar_url))
     else:
-        embed = discord.Embed(title=f'Пользователь {user}', description= f'Играет в {gameuser} \nС телефона?: {rly}\nОтображаемое имя: {name}\n Самая высокая роль: {role}', color=0xffff00)
+        embed = discord.Embed(title=f'Пользователь {user}', description= f'Играет в {gameuser} \nС телефона?: {rly}\nОтображаемое имя: {name}\n Самая высокая роль: {role.mention}', color=0xffff00)
         embed.set_footer(text=f'Вызвано: {ctx.message.author}', icon_url=str(ctx.message.author.avatar_url))
 
     await ctx.send(embed=embed)
@@ -94,7 +94,7 @@ async def trans(ctx, *args):
 @client.command(brief = 'Помощь')
 async def help(ctx, *args):
     await ctx.message.delete()
-    embed = discord.Embed(title=f'Помощь по командам', description= f'#avatar - Аватар пользователя(5 сек)\n #helpme - Это сообщение \n #info - Информация о пользователе \n #random - Рандом(2 сек) \n #say - Отослать сообщение от имени бота(Администрация) \n #trans - Перевести текст(5 сек) \n #f - просто f..', color=0xffff00)
+    embed = discord.Embed(title=f'Помощь по командам', description= f'#avatar - Аватар пользователя(5 сек)\n #help - Это сообщение \n #info - Информация о пользователе \n #random - Рандом(2 сек) \n #say - Отослать сообщение от имени бота(Администрация) \n #trans - Перевести текст(5 сек) \n #f - просто f.. \n#role - Выдача роли(Администратор)\n#call - звонок на сервере(Для включения демонстрации)', color=0xffff00)
     embed.set_footer(text=f'Вызвано: {ctx.message.author} \n Удалится через 30 секунд', icon_url=str(ctx.message.author.avatar_url),)
     embed.set_image(url='https://cdn.discordapp.com/attachments/606607467719426058/608751400880570372/lvck.png')
     msg = await ctx.send(embed = embed)
@@ -140,6 +140,7 @@ async def call(ctx):
         em = discord.Embed(title= 'Клик(для выхода нажать на текстовый канал)', colour = user.color, description = f'https://discordapp.com/channels/{Guild}/{channel}')
         await ctx.message.delete()
         await ctx.send(embed = em, delete_after = 300)
+
 
 
 token = os.environ.get('BOT_TOKEN')
