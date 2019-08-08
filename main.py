@@ -143,3 +143,4 @@ async def call(ctx):
 
 
 token = os.environ.get('BOT_TOKEN')
+client.run(token)
